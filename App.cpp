@@ -27,7 +27,7 @@ bool App::Init(){
     SDL_Flip(display);
     SDL_Delay(1000);
 
-    font = TTF_OpenFont("CharisSILR.ttf", 15);
+    font = TTF_OpenFont("..//CharisSILR.ttf", 15);
     TextField Nickname(20, 40, 80, 40, 0x00ff00, 0, 0, 0);
     data.name = Nickname.Input(display, font);
     //SDL_EnableKeyRepeat(1, SDL_DEFAULT_REPEAT_INTERVAL / 3);

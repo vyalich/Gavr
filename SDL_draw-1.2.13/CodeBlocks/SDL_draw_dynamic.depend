@@ -1,0 +1,79 @@
+# depslib dependency file v1.0
+1079031252 source:c:\sdl\sdl_draw-1.2.13\src\sdl_draw.c
+	"SDL_draw.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<wchar.h>
+	"Draw_Pixel.c"
+	"Draw_Pixel.c"
+	"Draw_Pixel.c"
+	"Draw_Pixel.c"
+	"Draw_Line.c"
+	"Draw_Line.c"
+	"Draw_Line.c"
+	"Draw_Line.c"
+	"Draw_Circle.c"
+	"Draw_Circle.c"
+	"Draw_Circle.c"
+	"Draw_Circle.c"
+	"Draw_FillCircle.c"
+	"Draw_FillCircle.c"
+	"Draw_FillCircle.c"
+	"Draw_FillCircle.c"
+	"Draw_HLine.c"
+	"Draw_HLine.c"
+	"Draw_HLine.c"
+	"Draw_HLine.c"
+	"Draw_VLine.c"
+	"Draw_VLine.c"
+	"Draw_VLine.c"
+	"Draw_VLine.c"
+	"Draw_Rect.c"
+	"Draw_Rect.c"
+	"Draw_Rect.c"
+	"Draw_Rect.c"
+	"Draw_Ellipse.c"
+	"Draw_Ellipse.c"
+	"Draw_Ellipse.c"
+	"Draw_Ellipse.c"
+	"Draw_FillEllipse.c"
+	"Draw_FillEllipse.c"
+	"Draw_FillEllipse.c"
+	"Draw_FillEllipse.c"
+	"Draw_Round.c"
+	"Draw_Round.c"
+	"Draw_Round.c"
+	"Draw_Round.c"
+	"Draw_FillRound.c"
+	"Draw_FillRound.c"
+	"Draw_FillRound.c"
+	"Draw_FillRound.c"
+
+1029325208 c:\sdl\sdl_draw-1.2.13\include\sdl_draw.h
+	"SDL.h"
+	"begin_code.h"
+	"close_code.h"
+
+1079031252 c:\sdl\sdl_draw-1.2.13\src\draw_pixel.c
+
+1079031252 c:\sdl\sdl_draw-1.2.13\src\draw_line.c
+
+1079031252 c:\sdl\sdl_draw-1.2.13\src\draw_circle.c
+
+1029325208 c:\sdl\sdl_draw-1.2.13\src\draw_fillcircle.c
+
+1029325208 c:\sdl\sdl_draw-1.2.13\src\draw_hline.c
+
+1029325208 c:\sdl\sdl_draw-1.2.13\src\draw_vline.c
+
+1029325208 c:\sdl\sdl_draw-1.2.13\src\draw_rect.c
+
+1079031252 c:\sdl\sdl_draw-1.2.13\src\draw_ellipse.c
+
+1029325208 c:\sdl\sdl_draw-1.2.13\src\draw_fillellipse.c
+
+1079031252 c:\sdl\sdl_draw-1.2.13\src\draw_round.c
+
+1029325208 c:\sdl\sdl_draw-1.2.13\src\draw_fillround.c
+

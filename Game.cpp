@@ -7,7 +7,6 @@ bool Compare(Animal *A, Animal *B){
 Game::Game(){
     running         = true;
     pause           = false;
-    display         = 0;
     delay           = 20;
     FPS             = 0;
     ticks           = 0;
@@ -18,10 +17,7 @@ Game::~Game(){
 
 }
 
-void Game::MainCycle(){
-
-    player.Init();
-    start = next_spawn_time = next_frame_time = SDL_GetTicks();
+int Game::MainCycle(SDL_Surface *display){
     Uint64 game_over = next_frame_time + 10000;
     while(SDL_GetTicks() < game_over && running){
         while(SDL_GetTicks() > next_frame_time){
@@ -29,32 +25,18 @@ void Game::MainCycle(){
             while(SDL_PollEvent(&event))
                 Event();
             Compute();
-            Draw();
+            Draw(display);
 
         }
     }
 
-    for(int i = 0; i < Animals.size(); i++)
-        delete Animals[i];
-    Animals.clear();
+    return player.GetPoints();
 }
 
 bool Game::Init(){
-    if(SDL_Init(SDL_INIT_EVERYTHING) < 0)
-        return false;
-    atexit(SDL_Quit);
+    player.Init();
+    start = next_spawn_time = next_frame_time = SDL_GetTicks();
 
-    if(TTF_Init() < 0)
-        return false;
-    atexit(TTF_Quit);
-
-    display = SDL_SetVideoMode(640,480,32, SDL_ANYFORMAT | SDL_DOUBLEBUF | SDL_HWSURFACE);
-    if (!display)
-        return false;
-
-    SDL_EnableKeyRepeat(1, SDL_DEFAULT_REPEAT_INTERVAL / 3);
-
-    return true;
 }
 
 void Game::Event(){
@@ -64,19 +46,20 @@ void Game::Event(){
                 case SDLK_ESCAPE:
                     running = false;
                     break;
+                case SDLK_SPACE:
+                    player.Shoot();
+                    break;
                 case SDLK_RIGHT:
                     player.SetRight();
                     break;
                 case SDLK_LEFT:
                     player.SetLeft();
                     break;
-                case SDLK_SPACE:
-                    player.Shoot();
-                    break;
             }
             break;
         case SDL_KEYUP:
-            player.StopMove();
+            if(event.key.keysym.sym == SDLK_LEFT && player.MovingLeft() || event.key.keysym.sym == SDLK_RIGHT && player.MovingRight())
+                player.StopMove();
             break;
     }
 }
@@ -90,7 +73,7 @@ void Game::Compute(){
         std::sort(Animals.begin(), Animals.end(), Compare);
     }
 
-    player.Compute();
+    player.Compute(Animals);
 
     for(int i = 0; i < Animals.size(); i++)
         Animals[i]->Compute();
@@ -103,7 +86,7 @@ void Game::Compute(){
     ticks++;
 }
 
-void Game::Draw(){
+void Game::Draw(SDL_Surface *display){
     Draw_FillRect(display, 0, 0, display->w, display->h/6, 0x00bfff);
     Draw_FillRect(display, 0, display->h/6, display->w, display->h/6*4, 0xc9bc0f);
     Draw_FillRect(display, 0, display->h/6*5, display->w, display->h/6, 0x99761b);
@@ -114,6 +97,8 @@ void Game::Draw(){
         if(Animals[i]->OnScreen())
             Animals[i]->Draw(display);
     }
+
+    player.DrawBullets(display);
 
     /***************/
     SDL_Surface *message;
@@ -138,7 +123,7 @@ void Game::Draw(){
 }
 
 void Game::Clean(){
-    SDL_FreeSurface(display);
-    TTF_Quit();
-    SDL_Quit();
+    for(int i = 0; i < Animals.size(); i++)
+        delete Animals[i];
+    Animals.clear();
 }

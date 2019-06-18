@@ -18,11 +18,11 @@ class Game
     public:
         Game();
         virtual ~Game();
-        void    MainCycle();
+        int    MainCycle(SDL_Surface *display);
         bool    Init();
         void    Event();
         void    Compute();
-        void    Draw();
+        void    Draw(SDL_Surface *display);
         void    Clean();
 
     protected:
@@ -30,7 +30,6 @@ class Game
     private:
         bool                    running;
         bool                    pause;
-        SDL_Surface             *display;
         SDL_Event               event;
         Uint64                  next_frame_time;
         Uint64                  next_spawn_time;

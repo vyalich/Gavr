@@ -1,3 +1,4 @@
+.idea
 
 # Created by https://www.gitignore.io/api/c++,codeblocks
 # Edit at https://www.gitignore.io/?templates=c++,codeblocks
@@ -5,6 +6,7 @@
 ### C++ ###
 # Prerequisites
 *.d
+*.cscope_file_list
 
 # Compiled Object files
 *.slo

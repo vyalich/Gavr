@@ -24,6 +24,10 @@ Dynamic::~Dynamic(){
 
 }
 
+void Dynamic::Move(){
+
+}
+
 Animal::Animal(){
 
 }
@@ -34,21 +38,29 @@ Animal::~Animal(){
 
 void Animal::Init(){
     int n = rand()%10;
-    sprite = SDL_CreateRGBSurface(SDL_HWSURFACE, 40, 20, 32, 0, 0, 0, 0);   //создаю поверхность для спрайта
-    Draw_FillRect(sprite, 0, 0, 40, 20, 0xffffff);
-    Draw_Rect(sprite, 0, 0, 40, 20, 0x000000);
-    w = sprite->w;
-    h = sprite->h;
+    SDL_Surface *tmp = SDL_LoadBMP("./img/animal.bmp");
+    SDL_SetColorKey(tmp, SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(tmp->format, 255, 0, 255));
+	sprite = SDL_DisplayFormat(tmp);
+	SDL_FreeSurface(tmp);
+
+    next_clip_time = SDL_GetTicks() + 100;
+    w = sprite->w/3;
+    h = sprite->h/2;
+    clip.x = 0;
+    clip.w = 27;
+    clip.h = 26;
     SDL_Surface *display = SDL_GetVideoSurface();
     y = display->w/6 + rand()%(display->w/4);    //выбираю случайное место спауна
     if(n < 5){
         x = -w;
-        speed = 5 + rand()%3;
+        clip.y = 0;
+        speed = 2 + rand()%3;
         dest = display->w - 1;
     }
     else{
         x = display->w - 1;
-        speed = -5 - rand()%3;
+        clip.y = 26;
+        speed = -2 - rand()%3;
         dest = -w;
     }
     points = 10+rand()%6;
@@ -58,11 +70,24 @@ void Animal::Init(){
 void Animal::Compute(){
     if(!on_screen)
         return;
+
     if(abs(dest - x) > abs(speed))
         x += speed;
     else
         on_screen = false;
+    if(SDL_GetTicks() >= next_clip_time){
+        next_clip_time = SDL_GetTicks() + 100;
+        clip.x += 27;
+        if(clip.x == 81)
+            clip.x = 0;
+    }
+}
 
+void Animal::Draw(SDL_Surface *display){
+    SDL_Rect coords;
+    coords.x = x;
+    coords.y = y;
+    SDL_BlitSurface(sprite, &clip, display, &coords);
 }
 
 bool Animal::Collides(int b_x, int b_y){
@@ -85,9 +110,10 @@ Hunter::~Hunter(){
 }
 
 void Hunter::Init(){
-    sprite = SDL_CreateRGBSurface(SDL_HWSURFACE, 30, 30, 32, 0, 0, 0, 0);
-    Draw_FillRect(sprite, 0, 0, 30, 30, 0xff0000);
-    Draw_Rect(sprite, 0, 0, 30, 30, 0x000000);
+    SDL_Surface *tmp = SDL_LoadBMP("./img/hunter.bmp");
+    SDL_SetColorKey(tmp, SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(tmp->format, 255, 0, 255));
+	sprite = SDL_DisplayFormat(tmp);
+	SDL_FreeSurface(tmp);
     SDL_Surface *display = SDL_GetVideoSurface();
     w = sprite->w;
     h = sprite->h;
@@ -96,6 +122,7 @@ void Hunter::Init(){
     last_shoot_time = 0;
     cooldown = 200;
     move_left = move_right = false;
+    points = 0;
 }
 
 void Hunter::Shoot(){
@@ -144,16 +171,26 @@ void Bullet::Init(int hunter_x, int hunter_y, int hunter_w){
     on_screen = true;
     x = hunter_x + hunter_w/2 - 5;
     y = hunter_y - 6;
-    sprite = SDL_CreateRGBSurface(SDL_HWSURFACE, 10, 10, 32, 0, 0, 0, 0);
-    Draw_FillCircle(sprite, 5, 5, 4, 0x00ff00);
-    speed = 6;
+    SDL_Surface *tmp = SDL_CreateRGBSurface(SDL_HWSURFACE, 10, 10, 32, 0, 0, 0, 0);
+    Draw_FillRect(tmp, 0, 0, 10, 10, 0xff00ff);
+    Draw_FillCircle(tmp, 5, 5, 4, 0x000000);
+    SDL_SetColorKey(tmp, SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(tmp->format, 255, 0, 255));
+	sprite = SDL_DisplayFormat(tmp);
+	SDL_FreeSurface(tmp);
+    speed = 4;
 }
 
 int Bullet::Compute(std::vector<Animal*> &Animals){
     y -= speed;
+    if(y <= 40){
+        on_screen = false;
+        return 0;
+    }
     for(int i = Animals.size() - 1; i >= 0; i--){
-         if(Animals[i]->OnScreen() && Animals[i]->Collides(x, y))
+        if(Animals[i]->OnScreen() && Animals[i]->Collides(x, y)){
+            on_screen = false;
             return Animals[i]->Die();
+        }
     }
     return 0;
 }

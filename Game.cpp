@@ -4,12 +4,11 @@ bool Compare(Animal *A, Animal *B){
     return A->y < B->y;
 }
 
-Game::Game(){
+Game::Game(): timer(395, 0, 10, 40, 0, 0xff, 0xff, 0xff), username(5, 0, 10, 40, 0, 0xff, 0xff, 0xff), points(785, 0, 10, 40, 0, 0xff, 0xff, 0xff) {
     running         = true;
-    pause           = false;
-    delay           = 20;
-    FPS             = 0;
+    delay           = 8;
     ticks           = 0;
+    elapsed         = 65;
     srand(time(0));
 }
 
@@ -17,44 +16,75 @@ Game::~Game(){
 
 }
 
-int Game::MainCycle(SDL_Surface *display){
-    Uint64 game_over = next_frame_time + 10000;
-    while(SDL_GetTicks() < game_over && running){
+int Game::MainCycle(SDL_Surface *display, TTF_Font *font){
+    while(elapsed){
         while(SDL_GetTicks() > next_frame_time){
             next_frame_time += delay;
-            while(SDL_PollEvent(&event))
-                Event();
+            if(elapsed >= 5){
+                while(SDL_PollEvent(&event))
+                    if(Event(display, font))
+                        return 0;
+            }
+            else{
+                player.StopMove();
+            }
             Compute();
-            Draw(display);
+            Draw(display, font);
 
         }
     }
-
     return player.GetPoints();
 }
 
-bool Game::Init(){
+bool Game::Init(Uint16 *user){
+
     player.Init();
     start = next_spawn_time = next_frame_time = SDL_GetTicks();
-
+    username.SetInfo(user);
+    return true;
 }
 
-void Game::Event(){
+bool Game::Event(SDL_Surface *display, TTF_Font *font){
     switch(event.type){
         case SDL_KEYDOWN:
             switch(event.key.keysym.sym){
-                case SDLK_ESCAPE:
-                    running = false;
+                case SDLK_ESCAPE:{
+                    Uint64 tmp = next_frame_time - SDL_GetTicks();
+                    Menu pause("./data/pause.dat", 300, 40, display->w/2 - 150, display->h/2-40, 300, 80, 0x939393, 0, 0, 0, VERTICAL);
+                    pause.Draw(display, font, 0);
+                    bool paused = true;
+                    while(paused){
+                        int x, y;
+                        SDL_GetMouseState(&x, &y);
+                        int key = pause.GetKey(y, VERTICAL);
+                        if(pause.MouseOver(x, y))
+                            pause.Draw(display, font, key);
+                        else
+                            pause.Draw(display, font, -1);
+                        while(SDL_PollEvent(&event)){
+                            if(event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT && pause.MouseOver(x, y)){
+                                if(key == 0)
+                                    paused = false;
+                                else if(key == 1)
+                                    return true;
+                            }
+                        }
+                    }
+                    next_frame_time = SDL_GetTicks() + tmp;
                     break;
-                case SDLK_SPACE:
+                }
+                case SDLK_SPACE:{
                     player.Shoot();
                     break;
-                case SDLK_RIGHT:
+                }
+                case SDLK_RIGHT:{
                     player.SetRight();
                     break;
-                case SDLK_LEFT:
+                }
+                case SDLK_LEFT:{
                     player.SetLeft();
                     break;
+                }
             }
             break;
         case SDL_KEYUP:
@@ -62,10 +92,11 @@ void Game::Event(){
                 player.StopMove();
             break;
     }
+    return false;
 }
 
 void Game::Compute(){
-    if(SDL_GetTicks() > next_spawn_time){
+    if(SDL_GetTicks() > next_spawn_time && elapsed > 5){
         next_spawn_time = SDL_GetTicks() + 500 + rand()%1000;
         Animal *tmp = new Animal;
         tmp->Init();
@@ -80,16 +111,21 @@ void Game::Compute(){
 
     if(SDL_GetTicks() - start > 1000){
         start = SDL_GetTicks();
-        FPS = ticks;
         ticks = 0;
+        elapsed--;
     }
     ticks++;
 }
 
-void Game::Draw(SDL_Surface *display){
+void Game::Draw(SDL_Surface *display, TTF_Font *font){
     Draw_FillRect(display, 0, 0, display->w, display->h/6, 0x00bfff);
+    Draw_FillRect(display, 0, 0, display->w, 40, 0x0f0f0f);
     Draw_FillRect(display, 0, display->h/6, display->w, display->h/6*4, 0xc9bc0f);
     Draw_FillRect(display, 0, display->h/6*5, display->w, display->h/6, 0x99761b);
+
+    username.Draw(display, font, -1);
+    timer.Draw(display, font, 0, (elapsed - 5 > 0)? elapsed - 5: 0);
+    points.Draw(display, font, 1, player.GetPoints());
 
     player.Draw(display);
 
@@ -99,25 +135,6 @@ void Game::Draw(SDL_Surface *display){
     }
 
     player.DrawBullets(display);
-
-    /***************/
-    SDL_Surface *message;
-    TTF_Font *font;
-    SDL_Rect dest = {.x = 100, .y = 100};
-    SDL_Color textColor = {.r = 255, .g = 255, .b = 255};
-    std::string str;
-
-    str = std::to_string(FPS);
-    font = TTF_OpenFont("CharisSILR.ttf", 20);
-    message = TTF_RenderText_Solid( font, str.c_str(), textColor );
-    if(message){
-        SDL_BlitSurface(message, NULL, display, &dest);
-        SDL_FreeSurface(message);
-        message = NULL;
-    }
-
-    TTF_CloseFont(font);
-    /**************/
 
     SDL_Flip(display);
 }

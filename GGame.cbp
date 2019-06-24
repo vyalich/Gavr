@@ -11,6 +11,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="0" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
@@ -30,14 +31,19 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add directory="C:/SDL/SDL-1.2.15/include/SDL" />
+			<Add option="-std=c++11" />
+			<Add directory="SDL-1.2.15/include/SDL" />
 		</Compiler>
 		<Linker>
 			<Add option="-lmingw32 -lSDLmain -lSDL -lSDL_draw -lSDL_ttf -lSDL.dll" />
-			<Add directory="C:/SDL/SDL-1.2.15/lib" />
+			<Add directory="SDL-1.2.15/lib" />
 		</Linker>
+		<Unit filename="App.cpp" />
+		<Unit filename="App.h" />
 		<Unit filename="Game.cpp" />
 		<Unit filename="Game.h" />
+		<Unit filename="UI.cpp" />
+		<Unit filename="UI.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="object.cpp" />
 		<Unit filename="object.h" />

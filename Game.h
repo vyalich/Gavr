@@ -11,6 +11,7 @@
 #include <algorithm>
 
 #include "object.h"
+#include "UI.h"
 
 
 class Game
@@ -18,23 +19,26 @@ class Game
     public:
         Game();
         virtual ~Game();
-        int    MainCycle(SDL_Surface *display);
-        bool    Init();
-        void    Event();
+        int    MainCycle(SDL_Surface *display, TTF_Font *font);
+        bool    Init(Uint16 *user);
+        bool    Event(SDL_Surface *display, TTF_Font *font);
         void    Compute();
-        void    Draw(SDL_Surface *display);
+        void    Draw(SDL_Surface *display, TTF_Font *font);
         void    Clean();
+
 
     protected:
 
     private:
+        Field                   timer;
+        Field                   username;
+        Field                   points;
+        int                     elapsed;
         bool                    running;
-        bool                    pause;
         SDL_Event               event;
         Uint64                  next_frame_time;
         Uint64                  next_spawn_time;
         int                     delay;
-        int                     FPS;
         int                     ticks;
         Uint64                  start;
         Hunter                  player;

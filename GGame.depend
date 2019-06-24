@@ -227,10 +227,10 @@
 	<ctime>
 	<vector>
 
-1560621134 source:f:\github\gavr\game.cpp
+1561328370 source:f:\github\gavr\game.cpp
 	"Game.h"
 
-1560344090 f:\github\gavr\game.h
+1561318442 f:\github\gavr\game.h
 	<SDL.h>
 	<SDL_draw.h>
 	<SDL_ttf.h>
@@ -240,8 +240,9 @@
 	<vector>
 	<algorithm>
 	"object.h"
+	"UI.h"
 
-1560621136 f:\github\gavr\object.h
+1561332280 f:\github\gavr\object.h
 	<SDL.h>
 	<SDL_draw.h>
 	<SDL_ttf.h>
@@ -249,13 +250,13 @@
 	<ctime>
 	<vector>
 
-1560618300 source:f:\github\gavr\main.cpp
-	"Game.h"
+1561288282 source:f:\github\gavr\main.cpp
+	"App.h"
 
-1560621008 source:f:\github\gavr\object.cpp
+1561334130 source:f:\github\gavr\object.cpp
 	"object.h"
 
-1560874033 source:c:\users\dimvy\onedrive\Документы\github\gavr\game.cpp
+1560970851 source:c:\users\dimvy\onedrive\Документы\github\gavr\game.cpp
 	"Game.h"
 
 1560873960 c:\users\dimvy\onedrive\Документы\github\gavr\game.h
@@ -283,17 +284,17 @@
 1560873906 source:c:\users\dimvy\onedrive\Документы\github\gavr\object.cpp
 	"object.h"
 
-1560892609 source:c:\users\dimvy\onedrive\Документы\github\gavr\ui.cpp
+1561038349 source:c:\users\dimvy\onedrive\Документы\github\gavr\ui.cpp
 	"UI.h"
 
-1560892209 c:\users\dimvy\onedrive\Документы\github\gavr\ui.h
+1560970855 c:\users\dimvy\onedrive\Документы\github\gavr\ui.h
 	"object.h"
 	<string>
 
-1560892209 source:c:\users\dimvy\onedrive\Документы\github\gavr\app.cpp
+1560953037 source:c:\users\dimvy\onedrive\Документы\github\gavr\app.cpp
 	"App.h"
 
-1560892209 c:\users\dimvy\onedrive\Документы\github\gavr\app.h
+1560951135 c:\users\dimvy\onedrive\Документы\github\gavr\app.h
 	"Game.h"
 	"UI.h"
 
@@ -496,4 +497,225 @@
 	"SDL.h"
 	"begin_code.h"
 	"close_code.h"
+
+1561328868 source:f:\github\gavr\app.cpp
+	"App.h"
+
+1561328370 f:\github\gavr\app.h
+	"Game.h"
+	"UI.h"
+	<fstream>
+
+1550482586 f:\github\gavr\sdl-1.2.15\include\sdl\sdl.h
+	"SDL_main.h"
+	"SDL_stdinc.h"
+	"SDL_audio.h"
+	"SDL_cdrom.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_loadso.h"
+	"SDL_mutex.h"
+	"SDL_rwops.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_video.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1550482584 f:\github\gavr\sdl-1.2.15\include\sdl\sdl_main.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+	"begin_code.h"
+	"close_code.h"
+
+1550482584 f:\github\gavr\sdl-1.2.15\include\sdl\sdl_stdinc.h
+	"SDL_config.h"
+	<sys/types.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+	<stddef.h>
+	<stdarg.h>
+	<memory.h>
+	<string.h>
+	<strings.h>
+	<inttypes.h>
+	<stdint.h>
+	<ctype.h>
+	<iconv.h>
+	"begin_code.h"
+	<alloca.h>
+	<malloc.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	"close_code.h"
+
+1550482586 f:\github\gavr\sdl-1.2.15\include\sdl\sdl_config.h
+	"SDL_platform.h"
+	"SDL_config_dreamcast.h"
+	"SDL_config_macos.h"
+	"SDL_config_macosx.h"
+	"SDL_config_symbian.h"
+	"SDL_config_win32.h"
+	"SDL_config_os2.h"
+	"SDL_config_minimal.h"
+
+1550482584 f:\github\gavr\sdl-1.2.15\include\sdl\sdl_platform.h
+
+1550482586 f:\github\gavr\sdl-1.2.15\include\sdl\sdl_config_win32.h
+	"SDL_platform.h"
+
+1550482586 f:\github\gavr\sdl-1.2.15\include\sdl\begin_code.h
+
+1550482586 f:\github\gavr\sdl-1.2.15\include\sdl\close_code.h
+
+1550482586 f:\github\gavr\sdl-1.2.15\include\sdl\sdl_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1550482586 f:\github\gavr\sdl-1.2.15\include\sdl\sdl_error.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1550482586 f:\github\gavr\sdl-1.2.15\include\sdl\sdl_endian.h
+	"SDL_stdinc.h"
+	<endian.h>
+	"begin_code.h"
+	"close_code.h"
+
+1550482584 f:\github\gavr\sdl-1.2.15\include\sdl\sdl_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1550482584 f:\github\gavr\sdl-1.2.15\include\sdl\sdl_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	<process.h>
+	"close_code.h"
+
+1550482584 f:\github\gavr\sdl-1.2.15\include\sdl\sdl_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1550482586 f:\github\gavr\sdl-1.2.15\include\sdl\sdl_cdrom.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1550482586 f:\github\gavr\sdl-1.2.15\include\sdl\sdl_cpuinfo.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1550482586 f:\github\gavr\sdl-1.2.15\include\sdl\sdl_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_active.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_quit.h"
+	"begin_code.h"
+	"close_code.h"
+
+1550482586 f:\github\gavr\sdl-1.2.15\include\sdl\sdl_active.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1550482584 f:\github\gavr\sdl-1.2.15\include\sdl\sdl_keyboard.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_keysym.h"
+	"begin_code.h"
+	"close_code.h"
+
+1550482584 f:\github\gavr\sdl-1.2.15\include\sdl\sdl_keysym.h
+
+1550482584 f:\github\gavr\sdl-1.2.15\include\sdl\sdl_mouse.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1550482584 f:\github\gavr\sdl-1.2.15\include\sdl\sdl_video.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1550482586 f:\github\gavr\sdl-1.2.15\include\sdl\sdl_joystick.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1550482584 f:\github\gavr\sdl-1.2.15\include\sdl\sdl_quit.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+
+1550482584 f:\github\gavr\sdl-1.2.15\include\sdl\sdl_loadso.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1550482584 f:\github\gavr\sdl-1.2.15\include\sdl\sdl_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1550482584 f:\github\gavr\sdl-1.2.15\include\sdl\sdl_version.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1550482586 f:\github\gavr\sdl-1.2.15\include\sdl\sdl_draw.h
+	"SDL.h"
+	"begin_code.h"
+	"close_code.h"
+
+1550482584 f:\github\gavr\sdl-1.2.15\include\sdl\sdl_ttf.h
+	"SDL.h"
+	"begin_code.h"
+	"close_code.h"
+
+1561320862 f:\github\gavr\ui.h
+	<SDL.h>
+	<SDL_draw.h>
+	<SDL_ttf.h>
+	<cstdlib>
+	<ctime>
+	<vector>
+	<fstream>
+	<stdio.h>
+
+1561327642 source:f:\github\gavr\ui.cpp
+	"UI.h"
 

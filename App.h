@@ -3,6 +3,16 @@
 
 #include "Game.h"
 #include "UI.h"
+#include <fstream>
+
+struct User{
+    Uint16* name;
+    int     points;
+
+    User();
+    User(User&);
+    ~User();
+};
 
 class App
 {
@@ -16,13 +26,14 @@ class App
     protected:
 
     private:
-        TTF_Font        *font;
-        bool            running;
-        SDL_Surface     *display;
-        struct          User{
-            std::string name;
-            int         points;
-        } data;
+        TTF_Font                *font;
+        SDL_Event               event;
+        bool                    running;
+        SDL_Surface             *display;
+        SDL_Surface             *background;
+        User                    current;
+        std::vector<User*>           results;
 };
+
 
 #endif // APP_H

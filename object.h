@@ -29,6 +29,7 @@ class Dynamic{
     public:
         Dynamic();
         ~Dynamic();
+        virtual void Move();
 
     protected:
         int     speed;
@@ -43,6 +44,7 @@ class Animal: public Static, public Dynamic{
         ~Animal();
         void        Init();
         void        Compute();
+        void        Draw(SDL_Surface *display);
         int         GetPoints() { return points; }
         bool        OnScreen() { return on_screen; }
         int         Die();
@@ -52,9 +54,11 @@ class Animal: public Static, public Dynamic{
     protected:
 
     private:
-        bool    on_screen;
-        int     dest;
-        int     points;
+        bool        on_screen;
+        int         dest;
+        int         points;
+        SDL_Rect    clip;
+        Uint64      next_clip_time;
 
 };
 
@@ -80,8 +84,8 @@ class Hunter: public Static, public Dynamic{
         ~Hunter();
         void Init();
         void StopMove() { speed = 0; move_left = move_right = false; }
-        void SetLeft() { speed = -6; move_left = true; move_right = false; }
-        void SetRight() { speed = 6; move_left = false; move_right = true; }
+        void SetLeft() { speed = -2; move_left = true; move_right = false; }
+        void SetRight() { speed = 2; move_left = false; move_right = true; }
         bool MovingLeft() { return move_left; }
         bool MovingRight() { return move_right; }
         void Shoot();

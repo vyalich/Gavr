@@ -498,7 +498,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1561328868 source:f:\github\gavr\app.cpp
+1561368904 source:f:\github\gavr\app.cpp
 	"App.h"
 
 1561328370 f:\github\gavr\app.h
@@ -716,6 +716,6 @@
 	<fstream>
 	<stdio.h>
 
-1561327642 source:f:\github\gavr\ui.cpp
+1561334466 source:f:\github\gavr\ui.cpp
 	"UI.h"
 

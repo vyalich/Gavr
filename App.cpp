@@ -163,7 +163,30 @@ void App::Execute(){
                         break;
                     }
                     case 3:{
-                        SDL_BlitSurface(background, 0, display, 0);
+                        SDL_Surface *rules = SDL_LoadBMP("./img/rules.bmp");
+                        SDL_BlitSurface(rules, 0, display, 0);
+                        Button back(display->w/2-150, 530, 300, 40, 0x939393, 0, 0, 0);
+                        Uint16 tmp[10] = {0x041d, 0x0430, 0x0437, 0x0430, 0x0434, 0};
+                        back.SetInfo(tmp);
+                        bool flag = true, focused = false;
+                        while(flag){
+                            int x, y;
+                            SDL_GetMouseState(&x, &y);
+                            if(back.MouseOver(x, y) && !focused){
+                                back.Focus();
+                                focused = true;
+                            }
+                            else if(!back.MouseOver(x, y) && focused){
+                                back.UnFocus();
+                                focused = false;
+                            }
+                            back.Draw(display, font, 0);
+                            SDL_Flip(display);
+                            while(SDL_PollEvent(&event)){
+                                if(event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT && back.MouseOver(x, y))
+                                    flag = false;
+                            }
+                        }
                         break;
                     }
                     case 4:{

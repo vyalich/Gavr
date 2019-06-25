@@ -1,0 +1,37 @@
+cmake_minimum_required(VERSION 3.13)
+project(Gavr)
+
+SET(SDL_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_LIST_DIR}/include")
+SET(SDL_LIBRARIES_WINDOWS_X64 "${CMAKE_CURRENT_LIST_DIR}/lib/windows/x64")
+SET(SDL_LIBRARIES_WINDOWS_X86 "${CMAKE_CURRENT_LIST_DIR}/lib/windows/x86")
+SET(SDL_LIBRARIES_LINUX_X64 "${CMAKE_CURRENT_LIST_DIR}/lib/linux/x64")
+SET(SDL_LIBRARIES_LINUX_X86 "${CMAKE_CURRENT_LIST_DIR}/lib/linux/x86")
+SET(SDL_DLL_LIBRARY "SDL.dll")
+SET(SDL_IMAGE_DLL_LIBRARY "SDL_image.dll")
+SET(SDL_PNG_DLL_LIBRARY "libpng15-15.dll")
+SET(SDL_ZLIB_DLL_LIBRARY "zlib1.dll")
+
+if(WIN32)
+    if(CMAKE_CL_64)
+        set(SDL_LIBRARIES_PATH ${SDL_LIBRARIES_WINDOWS_X64})
+    else(CMAKE_CL_64)
+        set(SDL_LIBRARIES_PATH ${SDL_LIBRARIES_WINDOWS_X86})
+    endif(CMAKE_CL_64)
+
+    set(SDL_LIBRARIES "SDL.lib" "SDL_image.lib")
+elseif(UNIX)
+    if(CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64")
+        set(SDL_LIBRARIES_PATH ${SDL_LIBRARIES_LINUX_X64})
+    else()
+        set(SDL_LIBRARIES_PATH ${SDL_LIBRARIES_LINUX_X86})
+    endif()
+
+    set(SDL_LIBRARIES "SDL" "SDL_image")
+endif()
+
+include_directories(${SDL_INCLUDE_DIRECTORIES})
+link_directories(${LINK_DIRECTORIES} ${SDL_LIBRARIES_PATH})
+
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++")
+add_executable(Gavr Game.cpp Game.h main.cpp object.h object.cpp)

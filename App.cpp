@@ -187,6 +187,7 @@ void App::Execute(){
                                     flag = false;
                             }
                         }
+                        SDL_FreeSurface(rules);
                         break;
                     }
                     case 4:{
